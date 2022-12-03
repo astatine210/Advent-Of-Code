@@ -32,7 +32,8 @@ def elf_priorities():
 
 
 def priority(item):
-    """Return the priority of an item"""
+    """Return the priority of an item.
+    a-z maps to 1-26, A-Z maps to 27-52"""
     return ord(item) - (96 if item >= "a" else 38)
 
 
