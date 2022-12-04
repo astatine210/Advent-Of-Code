@@ -14,7 +14,8 @@ def elf_calories(filename):
                 calories = 0
             else:
                 calories += int(line)
-
+        if calories:
+            yield calories
 
 def highest_n(iterable, n=3):
     """Return an n-tuple of the highest values in an iterable."""
