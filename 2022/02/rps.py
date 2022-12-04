@@ -28,11 +28,15 @@ def score_with_guide(them, guide):
 
 def main():
     """Run as script"""
-    rounds = tuple(games("input.txt"))
+    answer_1 = 0
+    answer_2 = 0
+    for game in games("input.txt"):
+        answer_1 += score(*game)
+        answer_2 += score_with_guide(*game)
     print("Answer to part 1:")
-    print(sum(score(*r) for r in rounds))
+    print(answer_1)
     print("Answer to part 2:")
-    print(sum(score_with_guide(*r) for r in rounds))
+    print(answer_2)
 
 
 if __name__ == "__main__":
