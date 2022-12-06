@@ -28,7 +28,7 @@ class Stacks(list):
         self[start] = self[start][:-n]
 
     def top_crates(self):
-        """Return string the crates at the top of each stack as a string"""
+        """Return the crates at the top of each stack as a string"""
         return "".join(stack[-1] for stack in self)
 
 
