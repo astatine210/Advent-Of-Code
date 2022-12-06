@@ -9,28 +9,24 @@ FILENAME = "input.txt"
 
 
 def listen(stream, **lengths):
-    """Listen to a stream and returns the position of unique
-    sequences of specified lengths"""
-    deques = []
-    names = []
-    found = []
-    for name, length in lengths.items():
-        deques.append(deque(maxlen=length))
-        names.append(name)
-        found.append(False)
+    """Return the position of unique sequences of
+    specified lengths in a stream"""
+    searches = {name: deque(maxlen=length) for name, length in lengths.items()}
+    result = {name: None for name in lengths}
 
     position = 0
-    while not all(found):
+    while searches:
         position += 1
         character = stream.read(1)
-        for index, f in enumerate(found):
-            if not f:
-                d = deques[index]
-                d.append(character)
-                if len(set(d)) == d.maxlen:
-                    found[index] = position
+        if not character:
+            break
+        for name, d in tuple(searches.items()):
+            d.append(character)
+            if len(set(d)) == d.maxlen:
+                del searches[name]
+                result[name] = position
 
-    return SimpleNamespace(**dict(zip(names, found)))
+    return SimpleNamespace(**result)
 
 
 def main():
