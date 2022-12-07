@@ -43,7 +43,10 @@ def main():
                 total += sizeof(p)
         return total
 
-    sizes = {p: sizeof(p) for p in filesystem}
+    sizes = {
+        p: sizeof(p)
+        for p in sorted(filesystem, key=lambda f: f.count("/"), reverse=True)
+    }
 
     answer_1 = sum(n for n in sizes.values() if n <= 100000)
     print("Answer to part 1:")
