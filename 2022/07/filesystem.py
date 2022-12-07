@@ -61,6 +61,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# Answer 1: 1350966
-# Answer 2: 6296435
