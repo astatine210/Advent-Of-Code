@@ -1,6 +1,6 @@
-"""Advent of Code Day 7
+"""Advent of Code Day 8
 
-URL: https://adventofcode.com/2022/day/7
+URL: https://adventofcode.com/2022/day/8
 """
 
 FILENAME = "input.txt"
@@ -34,41 +34,24 @@ def find_concealed(forest):
 def scenic_scores(forest):
     """Yield scenic scores for all trees not on the edge of the forest"""
 
+    def look(seq, value):
+        count = 0
+        for item in seq:
+            count += 1
+            if item >= value:
+                break
+        return count
+
     width = len(forest)
     for row in range(1, width - 1):
-        for column in range(1, width - 1):
-            height = forest[row][column]
-            total_viewed = 1
-
-            distance = 0
-            for x in range(column - 1, -1, -1):
-                distance += 1
-                if forest[row][x] >= height:
-                    break
-            total_viewed *= distance
-
-            distance = 0
-            for y in range(row - 1, -1, -1):
-                distance += 1
-                if forest[y][column] >= height:
-                    break
-            total_viewed *= distance
-
-            distance = 0
-            for x in range(column + 1, width):
-                distance += 1
-                if forest[row][x] >= height:
-                    break
-            total_viewed *= distance
-
-            distance = 0
-            for y in range(row + 1, width):
-                distance += 1
-                if forest[y][column] >= height:
-                    break
-            total_viewed *= distance
-
-            yield total_viewed
+        for col in range(1, width - 1):
+            height = forest[row][col]
+            yield (
+                look((forest[row][x] for x in range(col - 1, -1, -1)), height)
+                * look((forest[row][x] for x in range(col + 1, width)), height)
+                * look((forest[y][col] for y in range(row - 1, -1, -1)), height)
+                * look((forest[y][col] for y in range(row + 1, width)), height)
+            )
 
 
 def main():
