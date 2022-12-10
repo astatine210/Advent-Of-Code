@@ -12,12 +12,9 @@ def cycles(filename: str) -> tuple[int]:
     register = 1
     with open(filename, "r", encoding="ASCII") as filehandle:
         for line in filehandle:
-            if line[0] == "n":
-                count += 1
-                yield (count, register)
-            else:
-                count += 1
-                yield (count, register)
+            count += 1
+            yield (count, register)
+            if line[0] == "a":
                 count += 1
                 yield (count, register)
                 register += int(line[5:])
@@ -34,9 +31,9 @@ def main():
         column = (n - 1) % 40
         if column == 0:
             print()
-        print("##" if abs(x - column) <= 1 else "  ", end="")
-
-    print(f"\n\nAnswer to part 1: {answer_1}")
+        print('##' if abs(x - column) <= 1 else "  ", end="")
+    print("\n")
+    print(f"Answer to part 1: {answer_1}")
 
 
 if __name__ == "__main__":
