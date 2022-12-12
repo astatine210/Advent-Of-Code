@@ -5,7 +5,6 @@ URL: https://adventofcode.com/2022/day/11
 
 from jungle import Monkeys
 
-FILENAME = "test_input.txt"
 FILENAME = "input.txt"
 
 
